@@ -1,0 +1,32 @@
+DROP TABLE IF EXISTS notes CASCADE;
+DROP TABLE IF EXISTS notes_group CASCADE;
+
+CREATE TABLE notes (
+	id bigserial PRIMARY KEY,
+	note_text text NOT NULL,
+	is_italics bool NOT NULL,
+	is_bold bool NOT NULL,
+	text_size float DEFAULT 11 NOT NULL,
+	group_id bigint NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL
+);
+
+CREATE TABLE notes_group(
+	id bigserial PRIMARY KEY,
+	name varchar(25) NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL
+);
+
+ALTER TABLE notes
+ADD CONSTRAINT FK_notes_notes_group FOREIGN KEY (group_id) REFERENCES notes_group(id);
+
+INSERT INTO notes_group (name)
+VALUES
+('group1'),
+
+
+INSERT INTO notes (note_text, is_italics, is_bold, group_id)
+VALUES
+('HELLO, THIS IS FIRST NOTE', false, false, 1),
+
+SELECT * FROM notes;
