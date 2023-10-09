@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.notes.model.Note;
 
 import java.util.List;
+
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
     @Query("SELECT n FROM Note AS n WHERE n.groupId.id = :groupId")

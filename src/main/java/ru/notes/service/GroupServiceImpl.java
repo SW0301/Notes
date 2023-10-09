@@ -37,11 +37,11 @@ public class GroupServiceImpl implements GroupService {
     public List<Group> getAllGroups() {
         List<Group> groups = groupRepository.findAll();
         List<Group> notDeletedGroups = new ArrayList<>();
-        for(Group g : groups) {
-            if(!g.isDeleted())
+        for (Group g : groups) {
+            if (!g.isDeleted())
                 notDeletedGroups.add(g);
         }
-        if(notDeletedGroups.size() != 0)
+        if (notDeletedGroups.size() != 0)
             return notDeletedGroups;
         else throw new EntityNotFoundException();
     }
@@ -50,21 +50,25 @@ public class GroupServiceImpl implements GroupService {
     public Group getGroupById(Long id) {
         try {
             Group group = groupRepository.getReferenceById(id);
-            if(!group.isDeleted()) {
-                return group;
-            } else throw new EntityNotFoundException();
+            if (group.isDeleted()) {
+              throw new EntityNotFoundException();
+            }
+            return group;
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
             throw e;
         }
     }
 
     @Override
     public Group updateGroup(Long id, String name) {
-        Group group = groupRepository.getReferenceById(id);
-        group.setName(name);
-        groupRepository.save(group);
-        return group;
+        try {
+            Group group = groupRepository.getReferenceById(id);
+            group.setName(name);
+            groupRepository.save(group);
+            return group;
+        } catch (EntityNotFoundException e) {
+            throw e;
+        }
     }
 
     @Override
@@ -80,7 +84,6 @@ public class GroupServiceImpl implements GroupService {
 
             return "OK";
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
             throw e;
         }
     }

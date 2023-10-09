@@ -14,16 +14,24 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="notes_group", schema="public")
+@Table(name = "notes_group", schema = "public")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(insertable=false, updatable=false)
+    @Column(insertable = false, updatable = false)
     private Long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 }

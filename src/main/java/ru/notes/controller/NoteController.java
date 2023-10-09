@@ -54,6 +54,16 @@ public class NoteController {
         }
     }
 
+    @GetMapping("/group/{id}")
+    public ResponseEntity getAllNotesInGroup(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(noteService.getAllNotesInGroup(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Group does not exists");
+        }
+    }
+
     @PutMapping("/note/{id}")
     public ResponseEntity updateNote(@PathVariable Long id,
                                      @RequestParam(name = "text") String text,

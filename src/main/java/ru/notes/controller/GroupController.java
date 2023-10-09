@@ -46,9 +46,9 @@ public class GroupController {
 
     @DeleteMapping("/group/{id}")
     public ResponseEntity deleteGroup(@PathVariable Long id) {
-        try{
+        try {
             return ResponseEntity.ok(groupService.deleteGroup(id));
-        } catch (Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Cant find this group");
         }

@@ -35,7 +35,6 @@ public class NoteServiceImpl implements NoteService {
             note.setTextSize(textSize);
             return noteRepository.save(note);
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
             throw e;
         }
     }
@@ -44,11 +43,10 @@ public class NoteServiceImpl implements NoteService {
     public Note getNoteById(Long id) {
         try {
             Note note = noteRepository.getReferenceById(id);
-            if(!note.isDeleted())
+            if (!note.isDeleted())
                 return note;
             else throw new EntityNotFoundException();
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
             throw e;
         }
     }
@@ -57,12 +55,12 @@ public class NoteServiceImpl implements NoteService {
     public List<Note> getAllNotes() {
         List<Note> notes = noteRepository.findAll();
         List<Note> notDeletedNotes = new ArrayList<>();
-        for(Note n : notes) {
-            if(!n.isDeleted()) {
+        for (Note n : notes) {
+            if (!n.isDeleted()) {
                 notDeletedNotes.add(n);
             }
         }
-        if(notDeletedNotes.size() != 0)
+        if (notDeletedNotes.size() != 0)
             return notDeletedNotes;
         else throw new EntityNotFoundException();
     }
@@ -86,7 +84,6 @@ public class NoteServiceImpl implements NoteService {
             noteRepository.save(note);
             return note;
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
             throw e;
         }
     }
@@ -99,7 +96,6 @@ public class NoteServiceImpl implements NoteService {
             noteRepository.save(note);
             return "OK";
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
             throw e;
         }
     }

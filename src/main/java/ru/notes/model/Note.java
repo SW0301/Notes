@@ -42,4 +42,8 @@ public class Note {
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
 }
